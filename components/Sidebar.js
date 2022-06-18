@@ -14,6 +14,7 @@ const Sidebar = () => {
     return (
         <Flex 
         w = "300px"
+        h = "100%"
         borderEnd = "1px solid"
         borderColor = "gray.200"
         direction = "column"
@@ -31,14 +32,13 @@ const Sidebar = () => {
                 <IconButton isRound icon = {<CloseIcon/>} size = "sm" />
             </Flex>
 
-            <Button bg = "blue.50" color = "blue.500" m = {5} p = {4}>New Chat</Button>
+            <Button bg = "blue.50" color = "blue.500" m = {5} p = {4} _hover = {{bg: "blue.100", cursor: "pointer"}}>New Chat</Button>
 
             <Flex overflowY = "auto" direction = "column" sx = {{scrollbarWidth: "none"}} flex = {1}>
                 <Chats/>
                 <Chats/>
                 <Chats/>
             </Flex>
-
         </Flex>
     )
 }
