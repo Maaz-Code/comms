@@ -31,7 +31,7 @@ const Sidebar = () => {
                 <IconButton isRound icon = {<CloseIcon/>} size = "sm" />
             </Flex>
 
-            <Button m = {5} p = {4}>New Chat</Button>
+            <Button bg = "blue.50" color = "blue.500" m = {5} p = {4}>New Chat</Button>
 
             <Flex overflowY = "auto" direction = "column" sx = {{scrollbarWidth: "none"}} flex = {1}>
                 <Chats/>
