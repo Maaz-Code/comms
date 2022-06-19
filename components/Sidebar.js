@@ -1,5 +1,7 @@
 import { CloseIcon } from "@chakra-ui/icons"
 import { Avatar, Button, Flex, IconButton, Text } from "@chakra-ui/react"
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from "../firebaseconfig";
 
 const Chats = () => {
     return (
@@ -11,6 +13,8 @@ const Chats = () => {
 }
 
 const Sidebar = () => {
+    const [user] = useAuthState(auth);
+
     return (
         <Flex 
         w = "300px"
@@ -26,10 +30,10 @@ const Sidebar = () => {
             borderBottom = "1px solid" borderColor = "gray.200"
             >
                 <Flex align = "center">
-                    <Avatar src = "" marginEnd = {3}/>
-                    <Text>Tengen Uzui</Text>
+                    <Avatar src = {user.photoURL} marginEnd = {3}/>
+                    <Text>{user.displayName}</Text>
                 </Flex>
-                <IconButton isRound icon = {<CloseIcon/>} size = "sm" />
+                <IconButton isRound icon = {<CloseIcon/>} size = "sm" color = "#433491"/>
             </Flex>
 
             <Button bg = "blue.50" color = "blue.500" m = {5} p = {4} _hover = {{bg: "blue.100", cursor: "pointer"}}>New Chat</Button>

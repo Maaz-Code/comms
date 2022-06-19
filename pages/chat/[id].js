@@ -3,6 +3,7 @@ import { Avatar, Flex, Heading, IconButton, Input, Button } from "@chakra-ui/rea
 import Sidebar from "../../components/Sidebar"
 import { signOut } from "firebase/auth"
 import { auth } from "../../firebaseconfig"
+import Head from "next/head"
 
 
 const Topbar = () => {
@@ -24,7 +25,7 @@ const Bottombar = () => {
     return (
         <Flex borderTop = "1px solid" borderTopColor = "gray.200" p = {3}>
             <Input placeholder = "Type a message..." marginEnd = {3}/>
-            <IconButton icon = {<ArrowRightIcon/>} size = "md" />
+            <IconButton icon = {<ArrowRightIcon/>} size = "md" color = "#433491" />
         </Flex>
     )
 }
@@ -32,6 +33,9 @@ const Bottombar = () => {
 export default function Chat () {
     return (
         <Flex h = "100vh">
+            <Head>
+                <title>Comms</title>
+            </Head>
             <Sidebar/>
             <Flex flex = {1} direction = "column">
                 <Topbar/>

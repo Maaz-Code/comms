@@ -10,13 +10,13 @@ const Login = () => {
     return (
         <>
         <Head>
-            <title>Login</title>
+            <title>Login to Comms</title>
         </Head>
 
         <Center h = "100vh">
             <Stack
             align = "center"
-            bgColor = "gray.600"
+            bgColor = "#433491"
             p = {16}
             spacing = {12}
             boxShadow = "lg"
