@@ -1,19 +1,26 @@
 import { CloseIcon } from "@chakra-ui/icons"
 import { Avatar, Button, Flex, IconButton, Text } from "@chakra-ui/react"
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from "../firebaseconfig";
+import { auth, db } from "../firebaseconfig";
+import { useCollection } from 'react-firebase-hooks/firestore';
+import { collection } from "firebase/firestore";
 
-const Chats = () => {
-    return (
-        <Flex align = "center" p = {3} _hover = {{bg: "gray.200", cursor: "pointer"}}>
-            <Avatar src = "" marginEnd = {3}/>
-            <Text>Kyojuro Rengoku</Text>
-        </Flex>
-    )
-}
 
 const Sidebar = () => {
     const [user] = useAuthState(auth);
+    const [snapshot, loading, error] = useCollection(collection(db, 'chats'));
+    const chats = snapshot?.docs.map(docs => ({id: docs.id, ...docs.data()}));
+
+    const chatList = () => {
+        return (
+            chats?.map ( chat => (
+                <Flex key = {Math.random()} align = "center" p = {3} _hover = {{bg: "gray.200", cursor: "pointer"}}>
+                    <Avatar src = "" marginEnd = {3}/>
+                    <Text>{chat.users}</Text>
+                </Flex>
+            ))
+        )
+    }
 
     return (
         <Flex 
@@ -39,9 +46,7 @@ const Sidebar = () => {
             <Button bg = "blue.50" color = "blue.500" m = {5} p = {4} _hover = {{bg: "blue.100", cursor: "pointer"}}>New Chat</Button>
 
             <Flex overflowY = "auto" direction = "column" sx = {{scrollbarWidth: "none"}} flex = {1}>
-                <Chats/>
-                <Chats/>
-                <Chats/>
+                {chatList()}
             </Flex>
         </Flex>
     )
