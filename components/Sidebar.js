@@ -3,13 +3,13 @@ import { Avatar, Button, Flex, IconButton, Text } from "@chakra-ui/react"
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, db } from "../firebaseconfig";
 import { useCollection } from 'react-firebase-hooks/firestore';
-import { collection } from "firebase/firestore";
+import { collection, addDoc } from "firebase/firestore";
 import getOtherEmail from "../utils/getOtherEmail";
 import {useRouter} from "next/router";
 
 const Sidebar = () => {
     const [user] = useAuthState(auth);
-    const [snapshot, loading, error] = useCollection(collection(db, 'chats'));
+    const [snapshot] = useCollection(collection(db, 'chats'));
     const chats = snapshot?.docs.map(doc => ({id: doc.id, ...doc.data()}));
     const router = useRouter();
     
@@ -31,8 +31,13 @@ const Sidebar = () => {
         )
     }
 
-    const newChat = () => {
-        router.push(`/newChat`);
+    const chatAlreadyExists = (email) => chats?.find(chat => chat.users.includes(email) && chat.users.includes(user.email));
+
+    const newChat = async() => {
+        const input = prompt("Enter email of the recipient");
+        if(!chatAlreadyExists(input) && (input != user.email) && (input != null)) {
+            await addDoc(collection(db, 'chats'), {users: [user.email, input]});
+        }
     }
 
     return (

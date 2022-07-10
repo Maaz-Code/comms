@@ -1,10 +1,13 @@
 import { ArrowRightIcon } from "@chakra-ui/icons"
-import { Avatar, Flex, Heading, IconButton, Input, Button } from "@chakra-ui/react"
+import { Avatar, Flex, Heading, IconButton, Input, Button, Text } from "@chakra-ui/react"
 import Sidebar from "../../components/Sidebar"
-import { signOut } from "firebase/auth"
-import { auth } from "../../firebaseconfig"
 import Head from "next/head"
-
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { signOut } from "firebase/auth"
+import { auth, db } from "../../firebaseconfig"
+import { useRouter } from "next/router"
+import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { collection, orderBy, query } from "firebase/firestore"
 
 const Topbar = () => {
     return (
@@ -31,27 +34,35 @@ const Bottombar = () => {
 }
 
 export default function Chat () {
+
+    const [user] = useAuthState(auth);
+
+    const router = useRouter();
+    const { id } = router.query;
+
+    const q = query(collection(db, `chats/${id}/messages`), orderBy('timestamp'));
+    const [messages] = useCollectionData(q);
+
+    const getMessages = () => messages?.map(msg => {
+        const sender = msg.sender === user.email;
+
+        return (
+            <Flex key = {Math.random()} alignSelf = {sender ? "flex-start" : "flex-end"} bg = {sender ? "gray.100" : "#433491"} borderRadius = "lg" w = "fit-content" minWidth = "100px" p = {3} m = {1} color = {sender ? "black" : "white"}>
+                <Text>{msg.text}</Text>
+            </Flex>
+        )       
+    })
+
     return (
         <Flex h = "100vh">
             <Head>
                 <title>Comms</title>
             </Head>
             <Sidebar/>
-            <Flex flex = {1} direction = "column">
+            <Flex flex = {1} direction = "column" onClick={() => getMessages()}>
                 <Topbar/>
                 <Flex flex = {1} direction = "column" pt = {4} mx = {5} overflowY = "auto" sx = {{scrollbarWidth: "none"}}>
-                    <Flex bg = "gray.100" w = "fit-content" minWidth = "100px" p = {3} m = {1} borderRadius = "lg">
-                        Where are you going this year?
-                    </Flex>
-                    <Flex bg = "#433491" color = "white" w = "fit-content" minWidth = "100px" p = {3} m = {1} alignSelf = "flex-end" borderRadius = "lg">
-                        I will be travelling to Japan.
-                    </Flex>
-                    <Flex bg = "gray.100" w = "fit-content" minWidth = "100px" p = {3} m = {1} borderRadius = "lg">
-                        Great choice.
-                    </Flex>
-                    <Flex bg = "#433491" color = "white" w = "fit-content" minWidth = "60px" p = {3} m = {1} alignSelf = "flex-end" borderRadius = "lg">
-                        Thanks!
-                    </Flex>
+                    {getMessages()}
                 </Flex>
                 <Bottombar/>
             </Flex>
