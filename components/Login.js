@@ -12,18 +12,32 @@ const Login = () => {
         <Head>
             <title>Login to Comms</title>
         </Head>
+        <div className = "area" >
+            <ul className = "circles">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div >
 
-        <Center h = "100vh">
+        <Center h = "100vh" bgColor = "#CBD5E1">
             <Stack
             align = "center"
-            bgColor = "#433491"
+            bgColor = "#1E293B"
             p = {16}
             spacing = {12}
-            boxShadow = "lg"
-            rounded = "3xl"
+            boxShadow = "md"
+            rounded = "xl"
             >
                 <Box 
-                bgColor = "gray.300"
+                bgColor = "#FFFFFF"
                 w = "fit-content"
                 p = {5}
                 rounded = "3xl"
@@ -31,7 +45,9 @@ const Login = () => {
                 >
                     <ChatIcon w = "100px" h = "100px" color = "black" />
                 </Box>
-                <Button boxShadow = "md" onClick={() => signInWithGoogle("", {promp: "select_account"})}>Sign in with Google</Button>
+                <Button boxShadow = "md" onClick={() => signInWithGoogle("", {prompt: "select_account"})} bgColor = "#FFFFFF">
+                    Sign in with Google
+                </Button>
             </Stack>
         </Center>
         </>

@@ -40,6 +40,10 @@ const Sidebar = () => {
         }
     }
 
+    const closeSidebar = () => {
+        <Flex w="0"/>
+    }
+
     return (
         <Flex 
         w = "300px"
@@ -47,6 +51,7 @@ const Sidebar = () => {
         borderEnd = "1px solid"
         borderColor = "gray.200"
         direction = "column"
+        className="sidebar"
         >
             <Flex 
             w = "100%" h = "81px" 
@@ -58,7 +63,7 @@ const Sidebar = () => {
                     <Avatar src = {user.photoURL} marginEnd = {3}/>
                     <Text>{user.displayName}</Text>
                 </Flex>
-                <IconButton isRound icon = {<CloseIcon/>} size = "sm" color = "#433491"/>
+                <IconButton isRound icon = {<CloseIcon/>} size = "sm" color = "#1E293B" onClick={closeSidebar()}/>
             </Flex>
 
             <Button bg = "blue.50" color = "blue.500" m = {5} p = {4} _hover = {{bg: "blue.100", cursor: "pointer"}}

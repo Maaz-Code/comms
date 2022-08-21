@@ -44,7 +44,7 @@ const Bottombar = ({id, user}) => {
         <FormControl display = "flex" borderTop = "1px solid" borderTopColor = "gray.200" p = {3} onSubmit = {sendMessage} as = "form">
             <Input placeholder = "Type a message..." marginEnd = {3} autoComplete = "off" 
             onChange={e => setInput(e.target.value)} value = {input}/>
-            <IconButton icon = {<ArrowRightIcon/>} size = "md" color = "#433491" type = "submit"/>
+            <IconButton icon = {<ArrowRightIcon/>} size = "md" color = "#1E293B" type = "submit"/>
         </FormControl>
     )
 }
@@ -64,7 +64,7 @@ export default function Chat () {
         const sender = msg.sender === user.email;
 
         return (
-            <Flex key = {Math.random()} alignSelf = {sender ? "flex-start" : "flex-end"} bg = {sender ? "gray.100" : "#433491"} borderRadius = "lg" w = "fit-content" minWidth = "50px" p = {3} m = {1} color = {sender ? "black" : "white"}>
+            <Flex key = {Math.random()} alignSelf = {sender ? "flex-start" : "flex-end"} bg = {sender ? "gray.100" : "#1E293B"} borderRadius = "lg" w = "fit-content" minWidth = "50px" p = {3} m = {1} color = {sender ? "black" : "white"}>
                 <Text>{msg.text}</Text>
             </Flex>
         )       
