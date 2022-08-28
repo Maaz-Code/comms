@@ -1,5 +1,5 @@
 import { ArrowRightIcon } from "@chakra-ui/icons"
-import { Avatar, Flex, Heading, IconButton, Input, Button, Text, FormControl } from "@chakra-ui/react"
+import { Avatar, Flex, Heading, IconButton, Input, Button, Text, FormControl, useToast } from "@chakra-ui/react"
 import Sidebar from "../../components/Sidebar"
 import Head from "next/head"
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -12,14 +12,15 @@ import getOtherEmail from "../../utils/getOtherEmail";
 import { useState, useRef, useEffect } from "react";
 
 const Topbar = ({username}) => {
+    const toast = useToast();
     return (
-        <Flex align = "center" w = "100%" h = "81px" p = {3}>
+        <Flex align = "center" w = "100%" h = "81px" p = {3} borderBottom = "1px solid" borderColor = "gray.200">
             <Avatar src = "" marginEnd = {3}/>
             <Heading size = "md" flex = {1}>{username}</Heading>
             <Button bg = "red.50" color = "red.500" 
             marginEnd = "2" p = {4} 
             _hover = {{bg: "red.100", cursor: "pointer"}} 
-            onClick = {() => signOut(auth)}>
+            onClick = {() => {signOut(auth); toast({status: 'success', title: 'Signed Out!', duration: 3000, isClosable: true, position: 'top'})}}>
                 Sign Out
             </Button>
         </Flex>

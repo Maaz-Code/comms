@@ -1,10 +1,11 @@
 import { ChatIcon } from "@chakra-ui/icons"
-import { Box, Button, Center, Stack } from "@chakra-ui/react"
+import { Box, Button, Center, Stack, useToast } from "@chakra-ui/react"
 import { useSignInWithGoogle } from "react-firebase-hooks/auth"
 import Head from "next/head"
 import { auth } from "../firebaseconfig"
 
 const Login = () => {
+    const toast = useToast();
     const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
 
     return (
@@ -23,11 +24,9 @@ const Login = () => {
                 <li></li>
                 <li></li>
                 <li></li>
-                <li></li>
             </ul>
         </div >
-
-        <Center h = "100vh" bgColor = "#CBD5E1">
+        <Center h = "100vh" bgColor = "#B9D0EC">
             <Stack
             align = "center"
             bgColor = "#1E293B"
@@ -45,7 +44,7 @@ const Login = () => {
                 >
                     <ChatIcon w = "100px" h = "100px" color = "black" />
                 </Box>
-                <Button boxShadow = "md" onClick={() => signInWithGoogle("", {prompt: "select_account"})} bgColor = "#FFFFFF">
+                <Button boxShadow = "md" onClick={() => {signInWithGoogle("", {prompt: "select_account"}, toast({title: 'Login in process...', status: 'info', duration: 8000, isClosable: true, position: 'bottom-left'}))}} bgColor = "#FFFFFF">
                     Sign in with Google
                 </Button>
             </Stack>

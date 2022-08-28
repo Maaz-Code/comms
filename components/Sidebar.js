@@ -1,5 +1,5 @@
-import { CloseIcon } from "@chakra-ui/icons"
-import { Avatar, Button, Flex, IconButton, Text } from "@chakra-ui/react"
+// import { CloseIcon } from "@chakra-ui/icons"
+import { Avatar, Button, Flex, Text } from "@chakra-ui/react"
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, db } from "../firebaseconfig";
 import { useCollection } from 'react-firebase-hooks/firestore';
@@ -40,9 +40,9 @@ const Sidebar = () => {
         }
     }
 
-    const closeSidebar = () => {
-        <Flex w="0"/>
-    }
+    // const closeSidebar = () => {
+    //     console.log("close sidebar");
+    // }
 
     return (
         <Flex 
@@ -51,19 +51,18 @@ const Sidebar = () => {
         borderEnd = "1px solid"
         borderColor = "gray.200"
         direction = "column"
-        className="sidebar"
+        className = "sidebar"
         >
             <Flex 
             w = "100%" h = "81px" 
             justifyContent = "space-between" 
             align = "center" p = {3} 
-            borderBottom = "1px solid" borderColor = "gray.200"
             >
                 <Flex align = "center">
                     <Avatar src = {user.photoURL} marginEnd = {3}/>
-                    <Text>{user.displayName}</Text>
+                    <Text fontSize = "lg">{user.displayName}</Text>
                 </Flex>
-                <IconButton isRound icon = {<CloseIcon/>} size = "sm" color = "#1E293B" onClick={closeSidebar()}/>
+                {/* <IconButton isRound icon = {<CloseIcon/>} size = "sm" color = "#1E293B" onClick={closeSidebar()}/> */}
             </Flex>
 
             <Button bg = "blue.50" color = "blue.500" m = {5} p = {4} _hover = {{bg: "blue.100", cursor: "pointer"}}
