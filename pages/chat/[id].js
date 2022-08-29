@@ -14,13 +14,13 @@ import { useState, useRef, useEffect } from "react";
 const Topbar = ({username}) => {
     const toast = useToast();
     return (
-        <Flex align = "center" w = "100%" h = "81px" p = {3} borderBottom = "1px solid" borderColor = "gray.200">
+        <Flex align = "center" w = "100%" h = "81px" p = {3} borderBottom = "1px solid" borderColor = "gray.300">
             <Avatar src = "" marginEnd = {3}/>
             <Heading size = "md" flex = {1}>{username}</Heading>
-            <Button bg = "red.50" color = "red.500" 
-            marginEnd = "2" p = {4} 
+            <Button bg = "white" color = "red.500" 
+            marginEnd = "2" p = {4} shadow = "xl"
             _hover = {{bg: "red.100", cursor: "pointer"}} 
-            onClick = {() => {signOut(auth); toast({status: 'success', title: 'Signed Out!', duration: 3000, isClosable: true, position: 'top'})}}>
+            onClick = {() => {signOut(auth); toast({status: 'success', title: 'Signed Out!', duration: 3000, isClosable: true, position: 'top-right'})}}>
                 Sign Out
             </Button>
         </Flex>
@@ -43,9 +43,9 @@ const Bottombar = ({id, user}) => {
 
     return (
         <FormControl display = "flex" borderTop = "1px solid" borderTopColor = "gray.200" p = {3} onSubmit = {sendMessage} as = "form">
-            <Input placeholder = "Type a message..." marginEnd = {3} autoComplete = "off" 
-            onChange={e => setInput(e.target.value)} value = {input}/>
-            <IconButton icon = {<ArrowRightIcon/>} size = "md" color = "#1E293B" type = "submit"/>
+            <Input placeholder = "Type a message..." marginEnd = {3} autoComplete = "off" shadow = "xl"
+            onChange={e => setInput(e.target.value)} value = {input} bgColor = "white"/>
+            <IconButton icon = {<ArrowRightIcon/>} size = "md" color = "white" type = "submit" bgColor = "#1E293B" _hover = "none"/>
         </FormControl>
     )
 }
@@ -65,7 +65,7 @@ export default function Chat () {
         const sender = msg.sender === user.email;
 
         return (
-            <Flex key = {Math.random()} alignSelf = {sender ? "flex-start" : "flex-end"} bg = {sender ? "gray.100" : "#1E293B"} borderRadius = "lg" w = "fit-content" minWidth = "50px" p = {3} m = {1} color = {sender ? "black" : "white"}>
+            <Flex key = {Math.random()} shadow = {sender ? "lg" : "xl"} alignSelf = {sender ? "flex-start" : "flex-end"} bg = {sender ? "white" : "#1E293B"} borderRadius = "lg" w = "fit-content" minWidth = "50px" p = {3} m = {1} color = {sender ? "black" : "white"}>
                 <Text>{msg.text}</Text>
             </Flex>
         )       
@@ -85,9 +85,9 @@ export default function Chat () {
                 <title>Comms</title>
             </Head>
             <Sidebar/>
-            <Flex flex = {1} direction = "column" onClick={() => getMessages()}>
+            <Flex flex = {1} direction = "column" onClick={() => getMessages()} bgColor = "ghostwhite">
                 <Topbar username = {getOtherEmail(chat?.users, user)}/>
-                <Flex flex = {1} direction = "column" pt = {4} mx = {5} overflowY = "auto" sx = {{scrollbarWidth: "none"}}>
+                <Flex flex = {1} direction = "column" pt = {4} px = {4}  overflowY = "auto" sx = {{scrollbarWidth: "none"}}>
                     {getMessages()}
                     <div ref = {scrollToLatestChat}></div>
                 </Flex>

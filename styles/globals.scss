@@ -1,3 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+.headerText{
+    font-family: 'Pacifico', cursive;
+    font-size: 4.5rem;
+    color: #1E293B;
+}
+
 .circles{
     position: absolute;
     top: 0;
@@ -64,7 +72,7 @@
 }
 
 .circles li:nth-child(7){
-    left: 55%;
+    left: 57%;
     width: 20px;
     height: 20px;
     animation-delay: 15s;
