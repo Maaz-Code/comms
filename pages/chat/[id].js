@@ -14,7 +14,7 @@ import { useState, useRef, useEffect } from "react";
 const Topbar = ({username}) => {
     const toast = useToast();
     return (
-        <Flex align = "center" w = "100%" h = "81px" p = {3} borderBottom = "1px solid" borderColor = "gray.300">
+        <Flex align = "center" w = "100%" h = "81px" p = {3} borderBottom = "1px solid" borderColor = "gray.300" shadow = "base">
             <Avatar src = "" marginEnd = {3}/>
             <Heading size = "md" flex = {1}>{username}</Heading>
             <Button bg = "white" color = "red.500" 
@@ -42,10 +42,10 @@ const Bottombar = ({id, user}) => {
     }
 
     return (
-        <FormControl display = "flex" borderTop = "1px solid" borderTopColor = "gray.200" p = {3} onSubmit = {sendMessage} as = "form">
+        <FormControl display = "flex" borderTop = "1px solid" borderTopColor = "gray.200" p = {3} onSubmit = {sendMessage} as = "form" shadow = "base">
             <Input placeholder = "Type a message..." marginEnd = {3} autoComplete = "off" shadow = "xl"
-            onChange={e => setInput(e.target.value)} value = {input} bgColor = "white"/>
-            <IconButton icon = {<ArrowRightIcon/>} size = "md" color = "white" type = "submit" bgColor = "#1E293B" _hover = "none"/>
+            onChange={e => setInput(e.target.value)} value = {input} bgColor = "white" />
+            <IconButton icon = {<ArrowRightIcon/>} shadow = "xl" size = "md" color = "white" type = "submit" bgColor = "#1E293B" _hover = {{bgColor: "none", color: "none", cursor: "pointer"}}/>
         </FormControl>
     )
 }
