@@ -1,34 +1,11 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+# Comms Chat Application
+"Comms" is a full stack chat application made using the framework [NextJS](https://nextjs.org/). The whole interface is made using [Chakra UI](https://chakra-ui.com/). The UI framework handled most of the styling but some bits are done using the styling preprocessor [SCSS](https://sass-lang.com/). For secure communication, I have used Google OAuth authentication from [Firebase](https://firebase.google.com/) and similarly used its Firestore for storing all the chats. All the login logs, email id, and chats data are getting simaltaneously stored. None of it will be lost even after refresh or sign out. I made this project to practice my existing knowledge of frontend tech stacks and learn some more amazing tools and framweworks full-stack wise.
+## Guide
+- Visit the app by clicking here: [Comms](https://comms-chat.vercel.app/).
+- Sign In using your preferred Google account.
+- Click on "New Chat" to open a prompt which will ask you to enter the email of the recipient.
+- Type in your chat in the area at the bottom.
+- The reciever can also login at the same time and they will see your chat after they login.
+- Both the users then can communicate in real time.
+- After they are done, they can simply sign out from the app.
+#### Be sure to let me know how is the app although more impovisations will be done. You can connect with me on social media. Will write a blog about this project too. Do give a follow and star this repository. Suggestions are always welcomed. Thank you!
