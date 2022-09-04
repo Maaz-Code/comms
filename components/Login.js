@@ -6,7 +6,7 @@ import { auth } from "../firebaseconfig"
 
 const Login = () => {
     const toast = useToast();
-    const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
+    const [signInWithGoogle] = useSignInWithGoogle(auth);
 
     return (
         <>
@@ -47,7 +47,7 @@ const Login = () => {
                     >
                         <ChatIcon w = "100px" h = "100px" color = "black" />
                     </Box>
-                    <Button boxShadow = "md" onClick={() => {signInWithGoogle("", {prompt: "select_account"}, toast({title: 'Login in process...', status: 'info', duration: 9000, isClosable: true, position: 'bottom-left'}))}} bgColor = "#FFFFFF">
+                    <Button boxShadow = "md" onClick={() => {signInWithGoogle("", {prompt: "select_account"}, toast({title: 'Login in process...', status: 'info', duration: 8000, isClosable: true, position: 'bottom-left'}))}} bgColor = "#FFFFFF">
                         Sign in with Google
                     </Button>
                 </Stack>

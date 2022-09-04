@@ -46,8 +46,8 @@ const Sidebar = () => {
 
     return (
         <Flex 
-        w = "300px"
-        h = "100%"
+        w = "330px"
+        h = "100vh"
         borderEnd = "1px solid"
         borderColor = "gray.200"
         direction = "column"
