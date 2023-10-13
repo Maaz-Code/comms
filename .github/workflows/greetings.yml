@@ -1,0 +1,16 @@
+name: Greetings
+
+on: [pull_request_target, issues]
+
+jobs:
+  greeting:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+    steps:
+    - uses: actions/first-interaction@v1
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        issue-message: "Welcome ${{github.actor}} :v:. Thank you for your interest in Comms. Looking forward to your contribution."
+        pr-message: "Congrats ${{github.actor}} for your first PR :star:. Do star this repo for future contributions."
