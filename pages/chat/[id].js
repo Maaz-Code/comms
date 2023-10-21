@@ -20,8 +20,15 @@ const Topbar = ({username}) => {
             <Button bg = "white" color = "red.500" 
             marginEnd = "2" p = {4} shadow = "xl"
             _hover = {{bg: "red.100", cursor: "pointer"}} 
-            onClick = {() => {signOut(auth); toast({status: 'success', title: 'Signed Out!', duration: 3000, isClosable: true, position: 'top-right'})}}>
-                Sign Out
+            onClick  = { async () => {
+                 console.log('Before redirect'); 
+                
+                 window.location.href = "/";
+                await signOut(auth);   
+                console.log('After redirect');
+            toast({status: 'success', title: 'Signed Out!', duration: 3000, isClosable: true, position: 'top-right'})
+        }}>
+               Sign Out
             </Button>
         </Flex>
     )
