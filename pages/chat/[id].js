@@ -13,6 +13,7 @@ import { useState, useRef, useEffect } from "react";
 
 const Topbar = ({username}) => {
     const toast = useToast();
+  const router = useRouter();
     return (
         <Flex align = "center" w = "100%" h = "81px" p = {3} borderBottom = "1px solid" borderColor = "gray.300" shadow = "base">
             <Avatar src = "" marginEnd = {3}/>
@@ -20,8 +21,15 @@ const Topbar = ({username}) => {
             <Button bg = "white" color = "red.500" 
             marginEnd = "2" p = {4} shadow = "xl"
             _hover = {{bg: "red.100", cursor: "pointer"}} 
-            onClick = {() => {signOut(auth); toast({status: 'success', title: 'Signed Out!', duration: 3000, isClosable: true, position: 'top-right'})}}>
-                Sign Out
+            onClick  = { async () => {
+                 console.log('Before redirect'); 
+                 router.push('/');
+                await signOut(auth);   
+                console.log('After redirect');
+            toast({status: 'success', title: 'Signed Out!', duration: 3000, isClosable: true, position: 'top-right'})
+           
+        }}>
+               Sign Out
             </Button>
         </Flex>
     )
