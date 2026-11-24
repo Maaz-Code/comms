@@ -1,5 +1,7 @@
 const getOtherEmail = (users, currentUser) => {
-    return users?.filter(user => user != currentUser.email)[0];
+    if (!Array.isArray(users) || !currentUser?.email) return undefined;
+    const currentEmail = currentUser.email.toLowerCase();
+    return users.find(email => typeof email === "string" && email.toLowerCase() !== currentEmail);
 }
 
 export default getOtherEmail;

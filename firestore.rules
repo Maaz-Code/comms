@@ -1,0 +1,62 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function hasEmail() {
+      return request.auth != null && request.auth.token.email is string;
+    }
+
+    function isParticipant(users) {
+      return hasEmail()
+        && (request.auth.token.email in users || request.auth.token.email.lower() in users);
+    }
+
+    match /chats/{chatId} {
+      function validChatId(users) {
+        // Older clients use Firestore's auto-generated IDs.
+        let pair = string(users[0].toUtf8().size()) + ':' + users[0] + users[1];
+        return !chatId.matches('[a-f0-9]{64}')
+          || chatId == hashing.sha256(pair).toHexString().lower();
+      }
+
+      function updatesOwnDisplayName() {
+        let email = request.auth.token.email.lower();
+        let names = request.resource.data.displayNames;
+        let previousNames = resource.data.get('displayNames', {});
+        return request.resource.data.diff(resource.data).affectedKeys().hasOnly(['displayNames'])
+          && names is map
+          && names.diff(previousNames).affectedKeys().hasOnly([email])
+          && names[email] is string
+          && names[email].trim().size() > 0;
+      }
+
+      allow read: if isParticipant(resource.data.users);
+      allow create: if request.resource.data.keys().hasOnly(['users'])
+        && request.resource.data.users is list
+        && request.resource.data.users.size() == 2
+        && request.resource.data.users[0] is string
+        && request.resource.data.users[1] is string
+        && request.resource.data.users[0].lower() != request.resource.data.users[1].lower()
+        && validChatId(request.resource.data.users)
+        && isParticipant(request.resource.data.users);
+      // Concurrent creation of the same conversation can repeat the same write.
+      allow update: if isParticipant(resource.data.users)
+        && (request.resource.data == resource.data || updatesOwnDisplayName());
+
+      match /messages/{messageId} {
+        function isChatParticipant() {
+          return hasEmail()
+            && isParticipant(get(/databases/$(database)/documents/chats/$(chatId)).data.users);
+        }
+
+        allow read: if isChatParticipant();
+        allow create: if isChatParticipant()
+          && request.resource.data.keys().hasOnly(['text', 'sender', 'timestamp'])
+          && request.resource.data.text is string
+          && request.resource.data.text.trim().size() > 0
+          && request.resource.data.sender == request.auth.token.email
+          && request.resource.data.timestamp == request.time;
+      }
+    }
+  }
+}
